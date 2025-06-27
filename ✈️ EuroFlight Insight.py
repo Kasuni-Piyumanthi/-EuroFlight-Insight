@@ -117,6 +117,10 @@ def plot_histogram(data, airline_code, airline_name, airport_name, year):
     y_axis = Line(Point(50, 50), Point(50, 550))
     y_axis.draw(win)
 
+    #Draw Grid Lines and Y-axis Labels
+    max count = max(data.values()) if data else 1
+    for i in range(0, max_count+ 1,max(1, max_count // 5)):
+
     #Draw title
     title = Text(Point(400, 20), f"{airline_name} Departures from {airport_name}, {year}")
     title.setSize(14)
@@ -138,7 +142,7 @@ def plot_histogram(data, airline_code, airline_name, airport_name, year):
 
         #Draw bar
         bar = Rectangle(Point(x1, y1), Point(x2, y2))
-        bar.setFill("skyblue")
+        bar.setFill("lightgreen")
         bar.setOutline("black")
         bar.draw(win)
 
@@ -148,7 +152,7 @@ def plot_histogram(data, airline_code, airline_name, airport_name, year):
         label.draw(win)
 
         #Draw hour below bar
-        hour_label = Text(Point((x1 + x2) / 2, 560), hour)
+        hour_label = Text(Point((x1 + x2) / 2, 560), f"{hour}:00")
         hour_label.setSize(10)
         hour_label.draw(win)
 
