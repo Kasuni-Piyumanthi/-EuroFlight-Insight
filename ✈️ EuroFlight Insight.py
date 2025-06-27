@@ -111,17 +111,19 @@ def plot_histogram(data, airline_code, airline_name, airport_name, year):
     win = GraphWin(f"{airline_name} Departures Histogram", 800, 600)
     win.setBackground("white")
 
-    
+    #Draw axis
     x_axis = Line(Point(50, 550), Point(750, 550))
     x_axis.draw(win)
     y_axis = Line(Point(50, 50), Point(50, 550))
     y_axis.draw(win)
 
+    #Draw title
     title = Text(Point(400, 20), f"{airline_name} Departures from {airport_name}, {year}")
     title.setSize(14)
     title.setStyle("bold")
     title.draw(win)
 
+    #Scale bars to fit the window
     max_count = max(data.values()) if data else 1
     bar_width = 50
     spacing = 15
@@ -134,19 +136,23 @@ def plot_histogram(data, airline_code, airline_name, airport_name, year):
         y1 = 550 - height
         y2 = 550
 
+        #Draw bar
         bar = Rectangle(Point(x1, y1), Point(x2, y2))
         bar.setFill("skyblue")
         bar.setOutline("black")
         bar.draw(win)
 
+        #Draw count above bar
         label = Text(Point((x1 + x2) / 2, y1 - 10), str(count))
         label.setSize(10)
         label.draw(win)
 
+        #Draw hour below bar
         hour_label = Text(Point((x1 + x2) / 2, 560), hour)
         hour_label.setSize(10)
         hour_label.draw(win)
 
+    #Wait for user to close window
     try:
         win.getMouse()
     except GraphicsError:
@@ -169,6 +175,7 @@ def handle_histogram_request(content, airport_name, year):
         else:
             print("Unavailable Airline code please try again.")
 
+    #Count flights per hour for selected airline
     hourly_counts = {f"{str(h).zfill(2)}": 0 for h in range(12)}
     for row in content:
         if row[1].startswith(airline_code):
@@ -176,7 +183,6 @@ def handle_histogram_request(content, airport_name, year):
             if hour in hourly_counts:
                 hourly_counts[hour] += 1
 
-    print("Hourly counts:", hourly_counts)  # Debug print
     plot_histogram(hourly_counts, airline_code, valid_airlines[airline_code], airport_name, year)
 
 # Loop (Task E)
