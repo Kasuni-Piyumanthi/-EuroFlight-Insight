@@ -111,21 +111,21 @@ def plot_histogram(data, airline_code, airline_name, airport_name, year):
     win = GraphWin(f"{airline_name} Departures Histogram", 800, 600)
     win.setBackground("white")
 
-    #Draw axis
+    #Draw Axis
     x_axis = Line(Point(50, 550), Point(750, 550))
     x_axis.draw(win)
     y_axis = Line(Point(50, 50), Point(50, 550))
     y_axis.draw(win)
 
     #Draw Grid Lines and Y-axis Labels
-    max count = max(data.values()) if data else 1
+    max_count = max(data.values()) if data else 1
     for i in range(0, max_count+ 1,max(1, max_count // 5)):
         y = 550 - (i/max_count)*400
         grid_line = Line(Point(50,y), Point(750,y))
-        grid_line.setoutline("lightgray")
+        grid_line.setOutline("lightgray")
         grid_line.draw(win)
         y_label = Text(Point(30,y), str(i))
-        y_label.setsize(8)
+        y_label.setSize(8)
         y_label.draw(win)
 
     #Draw title
@@ -134,14 +134,14 @@ def plot_histogram(data, airline_code, airline_name, airport_name, year):
     title.setStyle("bold")
     title.draw(win)
 
-    #Scale bars to fit the window
-    max_count = max(data.values()) if data else 1
+    #Draw bars
     bar_width = 50
     spacing = 15
+    colors = ["lightgreen"]
 
     for i, hour in enumerate(sorted(data.keys())):
         count = data[hour]
-        height = int((count / max_count) * 400)
+        height = int((count / max_count) * 400 if max_count > 0 else 0)
         x1 = 70 + i * (bar_width + spacing)
         x2 = x1 + bar_width
         y1 = 550 - height
@@ -149,7 +149,7 @@ def plot_histogram(data, airline_code, airline_name, airport_name, year):
 
         #Draw bar
         bar = Rectangle(Point(x1, y1), Point(x2, y2))
-        bar.setFill("lightgreen")
+        bar.setFill(colors[i % len(colors)])
         bar.setOutline("black")
         bar.draw(win)
 
