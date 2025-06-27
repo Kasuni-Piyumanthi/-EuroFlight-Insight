@@ -120,6 +120,13 @@ def plot_histogram(data, airline_code, airline_name, airport_name, year):
     #Draw Grid Lines and Y-axis Labels
     max count = max(data.values()) if data else 1
     for i in range(0, max_count+ 1,max(1, max_count // 5)):
+        y = 550 - (i/max_count)*400
+        grid_line = Line(Point(50,y), Point(750,y))
+        grid_line.setoutline("lightgray")
+        grid_line.draw(win)
+        y_label = Text(Point(30,y), str(i))
+        y_label.setsize(8)
+        y_label.draw(win)
 
     #Draw title
     title = Text(Point(400, 20), f"{airline_name} Departures from {airport_name}, {year}")
