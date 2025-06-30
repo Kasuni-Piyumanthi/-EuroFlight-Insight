@@ -10,6 +10,22 @@ Additional info
 
 """
 
+from graphics import *
+import csv
+from datetime import datetime
+
+# Task A: Input Validation
+def get_valid_filename():
+
+    # Example list
+    valid_city_codes = ['CDG', 'BCN', 'LHR', 'FRA', 'AMS']
+    airport_names = {
+        'CDG': 'Paris Charles de Gaulle airport',
+        'BCN': 'Barcelona airport',
+        'LHR': 'London Heathrow airport',
+        'FRA': 'Frankfurt airport',
+        'AMS': 'Amsterdam airport'
+    }
 
     # --- CITY CODE INPUT ---
     while True:
